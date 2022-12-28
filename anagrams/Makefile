@@ -5,7 +5,7 @@ HDRS = anagrams.hpp
 
 anagrams: $(SRCS) $(HDRS)
 	$(CC) $(CFLAGS) anagrams.cpp -o anagrams.o
-	$(CC) $(CFLAGS) anagrams.cpp -o anagrams.o
+	$(CC) $(CFLAGS) test_anagrams.cpp -o test_anagrams.o
 
 
 .PHONY: clean
