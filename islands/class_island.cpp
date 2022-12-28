@@ -10,7 +10,7 @@ bool Island::is_it_my_point(pair<int, int> point) const
 {
     for(auto my_point: points)
     {
-        if(my_point.second != point.second-1)
+        if(my_point.second < point.second-1) // same or previous line
             continue;
 
         if(abs(my_point.first - point.first) <= 1)

@@ -23,34 +23,30 @@ int get_largest_island_size(int **map, int xsize, int ysize)
 {
     vector<Island> islands;
 
-    for(int y=_get_first_nonzero_line(map, xsize, ysize); y<ysize; ++y) {
+    for(int y=_get_first_nonzero_line(map, xsize, ysize); y<ysize; ++y) { //start the loop at first nonzero lines
     for(int x=0; x<xsize; ++x) {
-        if(!map[y*ysize+x]) 
+        if(!map[y*ysize+x])  // skip zeros
            continue;
-
         auto point = make_pair(x, y);
 
         vector<Island*> islands_sharing_the_point;
 
-        if(islands.empty())  // initial case - no islands // nieprawda, jesli zadna wyspa sie nie przyzna tez powinno wtedy tu wejsc
-        {
+        for(auto& island: islands) {
+            if(island.is_it_my_point(point)) {
+                island.add_point(point);
+                islands_sharing_the_point.push_back(&island);
+            }
+        }
+        if(islands.empty() || islands_sharing_the_point.empty())  {
             islands.push_back(Island(point));
         }
-        else { //once there is >= island
-            for(auto island: islands) {
-                if(island.is_it_my_point(point)) {
-                    island.add_point(point);
-                    islands_sharing_the_point.push_back(&island);
-                }
+        else if(islands_sharing_the_point.size() > 1) { 
+            for(unsigned int idx = 1; idx < islands_sharing_the_point.size(); ++idx) {
+                islands_sharing_the_point.at(0)->merge_island(*islands_sharing_the_point.at(idx));
             }
-            if(islands_sharing_the_point.size() > 1) { //if >=2 islands share the point
-                for(unsigned int idx = 1; idx < islands_sharing_the_point.size(); ++idx) {
-                    islands_sharing_the_point.at(0)->merge_island(*islands_sharing_the_point.at(idx));
-                }
             // code for merging islands
-            }
         }
-    }
+        }
     }
     return std::max_element(
         islands.begin(), 
