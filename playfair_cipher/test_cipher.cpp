@@ -3,7 +3,7 @@
 #include "cipher.hpp"
 
 TEST(PlayfairSuite, TestCipher1) {
-    ASSERT_EQ(string("HPSYXHSHXZUGBYYBDI"), playfair_cipher(string("Tomorrow we attack."), string("python"), false));
+    ASSERT_EQ("HPSYXHSHXZUGBYYBDI", playfair_cipher("Tomorrow we attack.", "python", false));
 }
 
 TEST(PlayfairSuite, TestDecipher1) {
