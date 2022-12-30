@@ -5,6 +5,6 @@
 
 using std::string;
 
-string translate_to_pilish(string msg);
+string translate_to_pilish(const string& msg);
 
 #endif
