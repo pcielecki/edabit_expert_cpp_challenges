@@ -6,6 +6,9 @@
 using std::string;
 using std::vector;
 
+
+
+
 TEST(HashingSuite, HashingTest1) {
     vector<string> input_words = {"string1", "string2", "string3"};
     EXPECT_EQ("2d3b990149219819705bfe290571a9dcf5cf2a2528a2c711a57bd430ce32497f", 

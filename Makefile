@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -g -Wall
-LIBS = -pthread -lgtest
+LIBS = -L/usr/lib -pthread -lgtest -lcrypto 
 EXEC_FILENAME = run_challenges
 
 export CC
