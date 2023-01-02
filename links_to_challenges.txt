@@ -7,3 +7,4 @@ pilish strings - https://edabit.com/challenge/7KfAnGD7autdzqegz
 hash jugling - https://edabit.com/challenge/phwTFijqwXt6WMtHE
 chain reaction (pt1) - https://edabit.com/challenge/SCsanEXNHWn6jwRiq
 chain reaction (pt3) - https://edabit.com/challenge/TbZMygSashyh5GmCw
+passwords strength checker - https://edabit.com/challenge/wSo3ozqxsfWAeSFWR
