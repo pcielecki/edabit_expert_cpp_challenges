@@ -5,7 +5,7 @@ EXEC_FILENAME = run_challenges
 
 export CC
 
-OBJS = msg_from_space/*.o islands/islands.o islands/class_island.o islands/test_islands.o anagrams/anagrams.o anagrams/test_anagrams.o playfair_cipher/cipher.o playfair_cipher/test_cipher.o rotate_transform/rotate.o rotate_transform/test_rotate.o pilish/pilish.o pilish/test_pilish.o hash_juggling/hash_juggling.o hash_juggling/test_hash_juggling.o chain_reaction/chain_reaction.o chain_reaction/test_chain_reaction.o pwd_checker/pwd_checker.o pwd_checker/test_pwd_checker.o
+OBJS = msg_from_space/*.o islands/islands.o islands/class_island.o islands/test_islands.o anagrams/anagrams.o anagrams/test_anagrams.o playfair_cipher/cipher.o playfair_cipher/test_cipher.o rotate_transform/rotate.o rotate_transform/test_rotate.o pilish/pilish.o pilish/test_pilish.o hash_juggling/hash_juggling.o hash_juggling/test_hash_juggling.o chain_reaction/chain_reaction.o chain_reaction/test_chain_reaction.o pwd_checker/pwd_checker.o pwd_checker/test_pwd_checker.o langtons_ant/ant.o langtons_ant/test_ant.o
 
 edabit_expert_cpp_challenges: main.cpp 
 	make -C msg_from_space
@@ -17,6 +17,7 @@ edabit_expert_cpp_challenges: main.cpp
 	make -C hash_juggling
 	make -C chain_reaction
 	make -C pwd_checker
+	make -C langtons_ant
 	$(CC) main.cpp $(OBJS) $(CFLAGS) $(LIBS) -o $(EXEC_FILENAME)
 
 clean:
