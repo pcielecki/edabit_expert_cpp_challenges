@@ -4,6 +4,8 @@
 #include <vector>
 using std::vector;
 
+typedef vector<vector<int>> grid;
+
 vector<vector<int>> langtons_ant(vector<vector<int>> initial_grid, 
 				  unsigned int initial_ant_x, 
                                   unsigned int initial_ant_y,

@@ -4,7 +4,6 @@
 
 using std::vector;
 
-typedef vector<vector<int>> grid;
 
 TEST(AntSuite, AntTest1) {
     grid initial_grid = {{1}};
