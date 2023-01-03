@@ -6,6 +6,6 @@
 using std::vector;
 using std::string;
 
-string connect_four(vector<string>);
+string connect_four(const vector<string>& moves);
 
 #endif
