@@ -15,7 +15,7 @@ enum class columns_marks {A = 0, B, C, D, E, F, G, err};
 
 const unsigned int n_rows = 6;
 
-typedef array<vector<marker_colors>, n_cols> grid_t;
+typedef vector<vector<marker_colors>> grid_t;
 
 static columns_marks str_to_col(const string& move) {
     string col_str = move.substr(0, 1);
@@ -31,44 +31,41 @@ static marker_colors str_to_color(const string& move) {
     return color_str == "Yellow"? marker_colors::yellow : marker_colors::red;
 }
 
-static marker_colors check_column_winner(const grid_t& grid) {
-    for(const vector<marker_colors>& column: grid) {
-        if(column.size() < 4)
-            continue;
-        else {
-            marker_colors color_checked = column.at(0);
-            unsigned int n_discs_matching = 0;
-            for(const auto& row: column) {
-                if(color_checked == row) {
-                    if(++n_discs_matching == 4) {
-                        return color_checked;
-                    }
-                }
-                color_checked = row;
-                }
-            }
-    }
-    return marker_colors::none;
-}
+static marker_colors check_for_winner(const grid_t& collections) {
+    marker_colors winner(marker_colors::none);
 
-static marker_colors check_row_winner(const grid_t& grid) {
-    for(unsigned int row_idx = 0; row_idx < n_rows; ++row_idx) {
-        array<marker_colors, n_cols> row;
-        for(unsigned int col_idx = 0; col_idx < n_cols; ++col_idx) {
-            row.at(col_idx) = row_idx < grid.at(col_idx).size()? grid.at(col_idx).at(row_idx) : marker_colors::none;
-        }
-        marker_colors color_checked = row.at(0);
+    for(const auto& collection: collections) {
+        if(collection.empty()) 
+            continue;
+
+        marker_colors color_checked = collection.at(0);
         unsigned int n_discs_matching = 0;
-        for(const marker_colors& marker: row) {
+        for(const auto& marker: collection) {
             if(color_checked == marker) {
                 if(++n_discs_matching == 4) {
-                    return color_checked;
+                    winner = color_checked;
+                    break;
                 }
             }
             color_checked = marker;
         }
+        if(winner != marker_colors::none)
+            break;
     }
-    return marker_colors::none;
+    return winner;
+}
+static marker_colors check_column_winner(const grid_t& grid) {
+    return check_for_winner(grid);
+}
+
+static marker_colors check_row_winner(const grid_t& grid) {
+    grid_t grid_by_row(n_rows, vector<marker_colors>());
+    for(unsigned int col_idx = 0; col_idx < n_cols; ++col_idx) {
+        for(unsigned int row_idx = 0; row_idx < grid.at(col_idx).size(); ++row_idx) {
+            grid_by_row.at(row_idx).push_back(grid.at(col_idx).at(row_idx));
+        }
+    }
+    return check_for_winner(grid_by_row);
 }
 
 static marker_colors find_winner(const grid_t& grid) {
@@ -81,7 +78,7 @@ static marker_colors find_winner(const grid_t& grid) {
 
 // TODO does casting back and forth to column_marks makes any sense?
 string connect_four(const vector<string>& moves) {
-    grid_t grid;
+    grid_t grid(n_cols, vector<marker_colors>());
     marker_colors winner = marker_colors::none; 
 
     for(const string& move: moves) {
