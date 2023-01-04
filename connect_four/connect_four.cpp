@@ -31,7 +31,7 @@ static marker_colors str_to_color(const string& move) {
     return color_str == "Yellow"? marker_colors::yellow : marker_colors::red;
 }
 
-static marker_colors find_winner(const grid_t& grid) {
+static marker_colors check_column_winner(const grid_t& grid) {
     for(const vector<marker_colors>& column: grid) {
         if(column.size() < 4)
             continue;
@@ -45,10 +45,38 @@ static marker_colors find_winner(const grid_t& grid) {
                     }
                 }
                 color_checked = row;
+                }
             }
+    }
+    return marker_colors::none;
+}
+
+static marker_colors check_row_winner(const grid_t& grid) {
+    for(unsigned int row_idx = 0; row_idx < n_rows; ++row_idx) {
+        array<marker_colors, n_cols> row;
+        for(unsigned int col_idx = 0; col_idx < n_cols; ++col_idx) {
+            row.at(col_idx) = row_idx < grid.at(col_idx).size()? grid.at(col_idx).at(row_idx) : marker_colors::none;
+        }
+        marker_colors color_checked = row.at(0);
+        unsigned int n_discs_matching = 0;
+        for(const marker_colors& marker: row) {
+            if(color_checked == marker) {
+                if(++n_discs_matching == 4) {
+                    return color_checked;
+                }
+            }
+            color_checked = marker;
         }
     }
     return marker_colors::none;
+}
+
+static marker_colors find_winner(const grid_t& grid) {
+    marker_colors winner = check_column_winner(grid);
+    if(marker_colors::none != winner) return winner;
+    winner = check_row_winner(grid);
+
+    return winner;
 }
 
 // TODO does casting back and forth to column_marks makes any sense?
