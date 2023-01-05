@@ -39,7 +39,10 @@ TEST(ConnectFourSuite, ConnectFourTestSingleWinRow) {
         "A_Yellow"};
     EXPECT_EQ("Red", connect_four(moves));
 }
-
+//       R
+//     R R
+//   R R Y 
+// R Y Y Y - Y
 TEST(ConnectFourSuite, ConnectFourTestSingleWinDiagonal) {
     vector<string> moves {
         "A_Red",
@@ -48,8 +51,10 @@ TEST(ConnectFourSuite, ConnectFourTestSingleWinDiagonal) {
         "C_Yellow",
         "C_Red",
         "D_Yellow",
-        "D_Red",
+        "C_Red",
         "D_Yellow",
+        "D_Red",
+        "F_Yellow",
         "D_Red"};
     EXPECT_EQ("Red", connect_four(moves));
 }
