@@ -84,12 +84,7 @@ TEST(ConnectFourSuite, ConnectFourTestSingleWinLeftDiagonal) {
 // =============
 // A B C D E F G
 //
-<<<<<<< HEAD
 TEST(ConnectFourSuite, ConnectFourTestSingleWinRightDiagonal) {
-=======
-// This test is disabled until the right diagonal win is implemented.
-TEST(ConnectFourSuite, DISABLED_ConnectFourTestSingleWinRightDiagonal) {
->>>>>>> test for right diagonal win
     vector<string> moves {
         "G_Red",
         "F_Yellow",

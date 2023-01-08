@@ -17,6 +17,8 @@ const unsigned int n_rows = 6;
 const array<string, n_cols> columns_str = {"A", "B", "C", "D", "E", "F", "G"};
 const unsigned int min_moves_to_win = 6;
 
+enum class diagonal_types {left, right};
+
 typedef vector<vector<marker_colors>> grid_t;
 
 static unsigned int str_to_col_idx(const string& move) {
@@ -58,49 +60,32 @@ static marker_colors check_row_winner(const grid_t& grid) {
     return check_for_winner(grid_by_row);
 }
 
-static marker_colors check_left_diagonal_winner(const grid_t& grid) {
+static marker_colors check_diagonal_winner(const grid_t& grid, diagonal_types diag_dir) {
     vector<pair<unsigned int, unsigned int>> diagonals_beginnings; 
     for(unsigned int i_row = 0; i_row <= n_rows-4; ++i_row)
-        diagonals_beginnings.push_back(std::make_pair(0, i_row));
+        diagonals_beginnings.push_back(std::make_pair(diag_dir == diagonal_types::left? 0 : n_cols-1, i_row));
     for(unsigned int i_col = 1; i_col <= n_cols-4; ++i_col)
-        diagonals_beginnings.push_back(std::make_pair(i_col, 0));
-
-    grid_t diagonals;
+        diagonals_beginnings.push_back(std::make_pair(diag_dir == diagonal_types::left? 
+                                                      i_col : n_cols-1-i_col, 0));
+    grid_t subgrid_by_diagonals;
     for(auto xy: diagonals_beginnings) {
-        diagonals.push_back(vector<marker_colors>());
+        subgrid_by_diagonals.push_back(vector<marker_colors>());
         while(xy.first < n_cols && xy.second < n_rows) {
-            diagonals.back().push_back(
-                    xy.second < grid.at(xy.first).size()? 
-                    grid.at(xy.first).at(xy.second) : marker_colors::none);
-            xy.first++; xy.second++;
+            subgrid_by_diagonals.back().push_back(xy.second < grid.at(xy.first).size()? 
+                                                  grid.at(xy.first).at(xy.second) : marker_colors::none);
+            diag_dir == diagonal_types::left? xy.first++ : xy.first--; 
+            xy.second++;
         }
     }
-    return check_for_winner(diagonals);
+    return check_for_winner(subgrid_by_diagonals);
 }
 
-static marker_colors check_right_diagonal_winer(const grid_t& grid) {
-    vector<pair<unsigned int, unsigned int>> diagonals_beginnings; 
-    for(unsigned int i_row = 0; i_row <= n_rows-4; ++i_row)
-        diagonals_beginnings.push_back(std::make_pair(n_cols-1, i_row));
-    for(unsigned int i_col = 3; i_col < n_cols-1; ++i_col)
-        diagonals_beginnings.push_back(std::make_pair(i_col, 0));
-
-    grid_t diagonals;
-    for(auto xy: diagonals_beginnings) {
-        diagonals.push_back(vector<marker_colors>());
-        while(xy.first < n_cols && xy.second < n_rows) {
-            diagonals.back().push_back(
-                    xy.second < grid.at(xy.first).size()? 
-                    grid.at(xy.first).at(xy.second) : marker_colors::none);
-            xy.first--; xy.second++;
-        }
-    }
-    return check_for_winner(diagonals);
-}
+static marker_colors check_left_diagonal_winner(const grid_t& grid) {return check_diagonal_winner(grid, diagonal_types::left);}
+static marker_colors check_right_diagonal_winner(const grid_t& grid) {return check_diagonal_winner(grid, diagonal_types::right);}
 
 static marker_colors find_winner(const grid_t& grid) {
     marker_colors winner = marker_colors::none;
-    for(auto win_checker: {check_column_winner, check_row_winner, check_left_diagonal_winner}) {
+    for(auto win_checker: {check_column_winner, check_row_winner, check_left_diagonal_winner, check_right_diagonal_winner}) {
         winner = win_checker(grid);
         if(winner != marker_colors::none) 
             break;
