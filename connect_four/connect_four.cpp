@@ -1,4 +1,5 @@
 #include <vector>
+#include <algorithm>
 #include <array>
 #include <string>
 #include <utility>
@@ -31,27 +32,16 @@ static marker_colors str_to_color(const string& move) {
 }
 
 static marker_colors check_for_winner(const grid_t& collections) {
-    marker_colors winner(marker_colors::none);
-
     for(const auto& collection: collections) {
-        if(collection.empty()) 
+        if(collection.size() < 4) 
             continue;
 
-        marker_colors color_checked = collection.at(0);
-        unsigned int n_discs_matching = 0;
-        for(const auto& marker: collection) {
-            if(color_checked == marker) {
-                if(++n_discs_matching == 4) {
-                    winner = color_checked;
-                    break;
-                }
-            }
-            color_checked = marker;
-        }
-        if(winner != marker_colors::none)
-            break;
+        for(marker_colors color: {marker_colors::red, marker_colors::yellow})
+            for(auto frame_start = collection.begin(); frame_start != collection.end()-3; ++frame_start)
+                if(std::all_of(frame_start, frame_start+4, [color](marker_colors marker){return marker == color;}))
+                    return color;
     }
-    return winner;
+    return marker_colors::none;
 }
 static marker_colors check_column_winner(const grid_t& grid) {
     return check_for_winner(grid);
@@ -97,6 +87,11 @@ static marker_colors find_winner(const grid_t& grid) {
         if(winner != marker_colors::none) 
             break;
         }
+    if(marker_colors::none != winner) return winner;
+    winner = check_row_winner(grid);
+    if(marker_colors::none != winner) return winner;
+    winner = check_diagonal_winner(grid);
+
     return winner;
 }
 
