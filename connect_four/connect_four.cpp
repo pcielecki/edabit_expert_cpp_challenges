@@ -90,12 +90,13 @@ static marker_colors check_diagonal_winner(const grid_t& grid) {
 }
 
 static marker_colors find_winner(const grid_t& grid) {
-    marker_colors winner = check_column_winner(grid);
-    if(marker_colors::none != winner) return winner;
-    winner = check_row_winner(grid);
-    if(marker_colors::none != winner) return winner;
-    winner = check_diagonal_winner(grid);
+    marker_colors winner = marker_colors::none;
 
+    for(auto win_checker: {check_column_winner, check_row_winner, check_diagonal_winner}) {
+        winner = win_checker(grid);
+        if(winner != marker_colors::none) 
+            break;
+        }
     return winner;
 }
 
