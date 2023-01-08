@@ -58,8 +58,7 @@ static marker_colors check_row_winner(const grid_t& grid) {
     return check_for_winner(grid_by_row);
 }
 
-static marker_colors check_diagonal_winner(const grid_t& grid) {
-    //remember both left n right
+static marker_colors check_left_diagonal_winner(const grid_t& grid) {
     vector<pair<unsigned int, unsigned int>> diagonals_beginnings; 
     for(unsigned int i_row = 0; i_row <= n_rows-4; ++i_row)
         diagonals_beginnings.push_back(std::make_pair(0, i_row));
@@ -79,19 +78,34 @@ static marker_colors check_diagonal_winner(const grid_t& grid) {
     return check_for_winner(diagonals);
 }
 
+static marker_colors check_right_diagonal_winner(const grid_t& grid) {
+    vector<pair<unsigned int, unsigned int>> diagonals_beginnings; 
+    for(unsigned int i_row = 0; i_row <= n_rows-4; ++i_row)
+        diagonals_beginnings.push_back(std::make_pair(n_cols-1, i_row));
+    for(unsigned int i_col = 3; i_col < n_cols-1; ++i_col)
+        diagonals_beginnings.push_back(std::make_pair(i_col, 0));
+
+    grid_t diagonals;
+    for(auto xy: diagonals_beginnings) {
+        diagonals.push_back(vector<marker_colors>());
+        while(xy.first < n_cols && xy.second < n_rows) {
+            diagonals.back().push_back(
+                    xy.second < grid.at(xy.first).size()? 
+                    grid.at(xy.first).at(xy.second) : marker_colors::none);
+            xy.first--; xy.second++;
+        }
+    }
+    return check_for_winner(diagonals);
+}
+
 static marker_colors find_winner(const grid_t& grid) {
     marker_colors winner = marker_colors::none;
 
-    for(auto win_checker: {check_column_winner, check_row_winner, check_diagonal_winner}) {
+    for(auto win_checker: {check_column_winner, check_row_winner, check_left_diagonal_winner, check_right_diagonal_winner}) {
         winner = win_checker(grid);
         if(winner != marker_colors::none) 
             break;
         }
-    if(marker_colors::none != winner) return winner;
-    winner = check_row_winner(grid);
-    if(marker_colors::none != winner) return winner;
-    winner = check_diagonal_winner(grid);
-
     return winner;
 }
 
