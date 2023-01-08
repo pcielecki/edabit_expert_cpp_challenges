@@ -9,23 +9,20 @@ using std::array;
 using std::pair;
 
 enum class marker_colors {yellow, red, none};
-const array<string, 3> results {"Yellow", "Red", "Draw"};
+const array<string, 3> results_str {"Yellow", "Red", "Draw"};
 
 const unsigned int n_cols = 7;
-const array<string, n_cols> columns = {"A", "B", "C", "D", "E", "F", "G"};
-enum class columns_marks {A = 0, B, C, D, E, F, G, err};
-
 const unsigned int n_rows = 6;
+const array<string, n_cols> columns_str = {"A", "B", "C", "D", "E", "F", "G"};
+const unsigned int min_moves_to_win = 6;
 
 typedef vector<vector<marker_colors>> grid_t;
 
-static columns_marks str_to_col(const string& move) {
-    string col_str = move.substr(0, 1);
-    for(unsigned int idx = 0; idx < n_cols; ++idx) {
-        if(col_str == columns.at(idx))
-                return static_cast<columns_marks>(idx);
-    }
-    return columns_marks::err;
+static unsigned int str_to_col_idx(const string& move) {
+    string column_str = move.substr(0, 1);
+    unsigned int column_idx = 0;
+    for(column_idx = 0; column_str != columns_str.at(column_idx); ++column_idx); 
+    return column_idx;
 }
 
 static marker_colors str_to_color(const string& move) {
@@ -102,18 +99,17 @@ static marker_colors find_winner(const grid_t& grid) {
     return winner;
 }
 
-// TODO does casting back and forth to column_marks makes any sense?
 string connect_four(const vector<string>& moves) {
     grid_t grid(n_cols, vector<marker_colors>());
     marker_colors winner = marker_colors::none; 
 
     for(unsigned int move_idx = 0; move_idx < moves.size(); ++move_idx) {
-        grid.at(static_cast<unsigned int>(str_to_col(moves.at(move_idx)))).push_back(str_to_color(moves.at(move_idx)));
-        if(move_idx >= 6) { // it's not possible to win before the 7th move
+        grid.at(str_to_col_idx(moves.at(move_idx))).push_back(str_to_color(moves.at(move_idx)));
+        if(move_idx >= min_moves_to_win) { // it's not possible to win before the 7th move
             winner = find_winner(grid);
             if(marker_colors::none != winner)
                 break;
         }
     }
-    return results.at(static_cast<unsigned int>(winner));
+    return results_str.at(static_cast<unsigned int>(winner));
 }
