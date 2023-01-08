@@ -5,6 +5,8 @@ TEST(ConnectFourSuite, ConnectFourTestSingleWinColumn) {
     vector<string> moves {
         "A_Red",
         "B_Yellow",
+        "B_Red",
+        "B_Yellow",
         "A_Red",
         "B_Yellow",
         "A_Red",
@@ -24,6 +26,22 @@ TEST(ConnectFourSuite, ConnectFourTestDraw) {
         "G_Yellow",
         "A_Red",
         "G_Yellow"};
+    EXPECT_EQ("Draw", connect_four(moves));
+}
+
+TEST(ConnectFourSuite, DrawWhenUncontiguous4InRow) {
+    vector<string> moves {
+        "G_Red",
+        "F_Yellow",
+        "F_Red",
+        "E_Yellow",
+        "E_Red",
+        "D_Yellow",
+        "E_Red",
+        "D_Yellow",
+        "D_Red",
+        "A_Yellow",
+        "A_Red"};
     EXPECT_EQ("Draw", connect_four(moves));
 }
 
