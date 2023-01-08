@@ -100,8 +100,7 @@ static marker_colors check_right_diagonal_winner(const grid_t& grid) {
 
 static marker_colors find_winner(const grid_t& grid) {
     marker_colors winner = marker_colors::none;
-
-    for(auto win_checker: {check_column_winner, check_row_winner, check_left_diagonal_winner, check_right_diagonal_winner}) {
+    for(auto win_checker: {check_column_winner, check_row_winner, check_left_diagonal_winner}) {
         winner = win_checker(grid);
         if(winner != marker_colors::none) 
             break;
