@@ -78,7 +78,7 @@ static marker_colors check_left_diagonal_winner(const grid_t& grid) {
     return check_for_winner(diagonals);
 }
 
-static marker_colors check_right_diagonal_winner(const grid_t& grid) {
+static marker_colors check_right_diagonal_winer(const grid_t& grid) {
     vector<pair<unsigned int, unsigned int>> diagonals_beginnings; 
     for(unsigned int i_row = 0; i_row <= n_rows-4; ++i_row)
         diagonals_beginnings.push_back(std::make_pair(n_cols-1, i_row));
