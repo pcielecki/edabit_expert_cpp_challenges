@@ -3,6 +3,7 @@
 #include <array>
 #include <string>
 #include <utility>
+#include "connect_four.hpp"
 
 using std::vector;
 using std::string;
@@ -10,11 +11,11 @@ using std::array;
 using std::pair;
 
 enum class marker_colors {yellow, red, none};
-const array<string, 3> results_str {"Yellow", "Red", "Draw"};
+const array<string, 3> results {"Yellow", "Red", "Draw"};
 
 const unsigned int n_cols = 7;
 const unsigned int n_rows = 6;
-const array<string, n_cols> columns_str = {"A", "B", "C", "D", "E", "F", "G"};
+const array<string, n_cols> column_names = {"A", "B", "C", "D", "E", "F", "G"};
 const unsigned int min_moves_to_win = 6;
 
 enum class diagonal_types {left, right};
@@ -23,14 +24,23 @@ typedef vector<vector<marker_colors>> grid_t;
 
 static unsigned int str_to_col_idx(const string& move) {
     string column_str = move.substr(0, 1);
-    unsigned int column_idx = 0;
-    for(column_idx = 0; column_str != columns_str.at(column_idx); ++column_idx); 
+    unsigned int column_idx;
+    try {
+        for(column_idx = 0; column_str != column_names.at(column_idx); ++column_idx); 
+    } 
+    catch(std::out_of_range) {
+        throw WrongColumnException(column_str);
+    }
     return column_idx;
 }
 
 static marker_colors str_to_color(const string& move) {
+    // TODO this one can throw too!
     string color_str = move.substr(2, string::npos);
-    return color_str == "Yellow"? marker_colors::yellow : marker_colors::red;
+
+    if("Yellow" == color_str) return marker_colors::yellow;
+    else if("Red" == color_str) return marker_colors::red;
+    else throw(WrongColorException(color_str));
 }
 
 static marker_colors check_for_winner(const grid_t& collections) {
@@ -105,5 +115,5 @@ string connect_four(const vector<string>& moves) {
                 break;
         }
     }
-    return results_str.at(static_cast<unsigned int>(winner));
+    return results.at(static_cast<unsigned int>(winner));
 }

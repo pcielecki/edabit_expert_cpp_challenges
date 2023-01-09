@@ -111,3 +111,31 @@ TEST(ConnectFourSuite, ConnectFourTestDoubleWinRow) {
         "D_Yellow"};
     EXPECT_EQ("Red", connect_four(moves));
 }
+
+TEST(ConnectFourSuite, ThrowRelevantExceptionGivenWrongColumn) {
+    vector<string> moves {"H_Red"};
+
+    EXPECT_THROW({
+        try {
+            connect_four(moves);
+        }
+        catch(WrongColumnException& e) {
+            EXPECT_STREQ("Unrecognized column: H", e.what());
+            throw;
+        }
+    }, WrongColumnException); 
+}
+
+TEST(ConnectFourSuite, ThrowRelevantExceptionGivenWrongColor) {
+    vector<string> moves {"A_Blue"};
+
+    EXPECT_THROW({
+        try {
+            connect_four(moves);
+        }
+        catch(WrongColorException& e) {
+            EXPECT_STREQ("Unrecognized color: Blue", e.what());
+            throw;
+        }
+    }, WrongColorException); 
+}
