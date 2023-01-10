@@ -23,24 +23,27 @@ enum class diagonal_types {left, right};
 typedef vector<vector<marker_colors>> grid_t;
 
 static unsigned int str_to_col_idx(const string& move) {
-    string column_str = move.substr(0, 1);
     unsigned int column_idx;
     try {
+        string column_str = move.substr(0, 1);
         for(column_idx = 0; column_str != column_names.at(column_idx); ++column_idx); 
     } 
     catch(std::out_of_range) {
-        throw WrongColumnException(column_str);
+        throw InvalidMoveFormatException(move);
     }
     return column_idx;
 }
 
 static marker_colors str_to_color(const string& move) {
-    // TODO this one can throw too!
-    string color_str = move.substr(2, string::npos);
-
-    if("Yellow" == color_str) return marker_colors::yellow;
-    else if("Red" == color_str) return marker_colors::red;
-    else throw(WrongColorException(color_str));
+    string color_str;
+    try {
+        color_str = move.substr(2, string::npos);
+        for(unsigned int color_idx = 0; color_str != results.at(color_idx); ++color_idx);
+    }
+    catch(std::out_of_range) {
+        throw InvalidMoveFormatException(move);
+    }
+    return "Yellow" == color_str? marker_colors::yellow : marker_colors::red;
 }
 
 static marker_colors check_for_winner(const grid_t& collections) {
