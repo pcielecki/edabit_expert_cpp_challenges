@@ -37,21 +37,16 @@ int get_largest_island_size(int **map, int xsize, int ysize)
                 islands_sharing_the_point.push_back(&island);
             }
         }
-        if(islands.empty() || islands_sharing_the_point.empty())  {
+        if(islands_sharing_the_point.empty())  {
             islands.push_back(Island(point));
         }
         else if(islands_sharing_the_point.size() > 1) { 
             for(unsigned int idx = 1; idx < islands_sharing_the_point.size(); ++idx) {
-                islands_sharing_the_point.at(0)->merge_island(*islands_sharing_the_point.at(idx));
+                *islands_sharing_the_point.at(0) += *islands_sharing_the_point.at(idx);
             }
-            // code for merging islands
         }
         }
     }
-    return std::max_element(
-        islands.begin(), 
-        islands.end(), 
-        [](const Island& island1, const Island& island2) 
-            {return island1.get_size() < island2.get_size();})->get_size();
+    return std::max_element(islands.begin(), islands.end())->get_size();
 }
 
