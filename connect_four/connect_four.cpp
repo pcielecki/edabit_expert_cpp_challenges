@@ -46,7 +46,7 @@ static marker_colors str_to_color(const string& move) {
     return "Yellow" == color_str? marker_colors::yellow : marker_colors::red;
 }
 
-static marker_colors check_for_winner(const grid_t& collections) {
+static marker_colors check_for_winner(const grid_t& collections) noexcept {
     for(const auto& collection: collections) {
         if(collection.size() < 4) 
             continue;
@@ -58,11 +58,12 @@ static marker_colors check_for_winner(const grid_t& collections) {
     }
     return marker_colors::none;
 }
-static marker_colors check_column_winner(const grid_t& grid) {
+//TODO does this wrapper really make sense or shall check_for_winner be invoked directly from find winner
+static marker_colors check_column_winner(const grid_t& grid) noexcept {
     return check_for_winner(grid);
 }
 
-static marker_colors check_row_winner(const grid_t& grid) {
+static marker_colors check_row_winner(const grid_t& grid) noexcept {
     grid_t grid_by_row(n_rows, vector<marker_colors>());
     for(unsigned int col_idx = 0; col_idx < n_cols; ++col_idx) {
         for(unsigned int row_idx = 0; row_idx < n_rows; ++row_idx) {
@@ -73,7 +74,7 @@ static marker_colors check_row_winner(const grid_t& grid) {
     return check_for_winner(grid_by_row);
 }
 
-static marker_colors check_diagonal_winner(const grid_t& grid, diagonal_types diag_dir) {
+static marker_colors check_diagonal_winner(const grid_t& grid, diagonal_types diag_dir) noexcept {
     vector<pair<unsigned int, unsigned int>> diagonals_beginnings; 
     for(unsigned int i_row = 0; i_row <= n_rows-4; ++i_row)
         diagonals_beginnings.push_back(std::make_pair(diag_dir == diagonal_types::left? 0 : n_cols-1, i_row));
@@ -93,10 +94,10 @@ static marker_colors check_diagonal_winner(const grid_t& grid, diagonal_types di
     return check_for_winner(subgrid_by_diagonals);
 }
 
-static marker_colors check_left_diagonal_winner(const grid_t& grid) {return check_diagonal_winner(grid, diagonal_types::left);}
-static marker_colors check_right_diagonal_winner(const grid_t& grid) {return check_diagonal_winner(grid, diagonal_types::right);}
+static marker_colors check_left_diagonal_winner(const grid_t& grid) noexcept {return check_diagonal_winner(grid, diagonal_types::left);}
+static marker_colors check_right_diagonal_winner(const grid_t& grid) noexcept {return check_diagonal_winner(grid, diagonal_types::right);}
 
-static marker_colors find_winner(const grid_t& grid) {
+static marker_colors find_winner(const grid_t& grid) noexcept {
     marker_colors winner = marker_colors::none;
     for(auto win_checker: {check_column_winner, check_row_winner, check_left_diagonal_winner, check_right_diagonal_winner}) {
         winner = win_checker(grid);
