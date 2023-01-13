@@ -18,7 +18,7 @@ bool Island::is_it_my_point(pair<int, int> point) const
 
 void Island::add_point(pair<int, int> point) 
 {
-    this->points.push_back(point); 
+    this->points.insert(point); 
 }
 
 int Island::get_size() const { return points.size(); }

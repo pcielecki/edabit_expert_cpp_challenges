@@ -20,12 +20,13 @@ TEST(IslandSuite, IslandTest5x5) {
 }
 
 TEST(IslandSuite, IslandTest5x5WithMerging) {
-    int map1[5][5] = {{1, 0, 0, 0, 1}, {1, 1, 1, 0, 1}, {0, 0, 0, 1, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 1}};
+    int map1[5][5] = {{1, 0, 0, 0, 1}, {1, 1, 1, 0, 1}, {0, 0, 0, 1, 0}, {0, 0, 0, 1, 0}, {1, 0, 0, 0, 0}};
 
     EXPECT_EQ(8, get_largest_island_size((int**)&map1, 5 ,5));
 }
  // 1 0 0 0 1
 //  1 1 1 0 1
 //  0 0 0 1 0 - now merging
-//  0 0 0 0 1
+//  0 0 0 1 0  
+//  1 0 0 0 0
 
