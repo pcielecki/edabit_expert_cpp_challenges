@@ -11,9 +11,9 @@ public:
     void merge_island(Island& island2);
     int get_size() const;
     friend bool operator<(const Island& i1, const Island& i2) {return i1.points.size() < i2.points.size();}
-    Island& operator+=(const Island& island2) 
-    {
-        points.insert(points.end(), island2.points.begin(), island2.points.end());
+    Island& operator+=(const Island& island2) {
+        if(&island2 != this)
+            points.insert(points.end(), island2.points.begin(), island2.points.end());
         return *this;
     }
 
