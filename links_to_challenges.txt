@@ -10,3 +10,4 @@ chain reaction (pt3) - https://edabit.com/challenge/TbZMygSashyh5GmCw
 passwords strength checker - https://edabit.com/challenge/wSo3ozqxsfWAeSFWR
 langton's ant - https://edabit.com/challenge/rKXvJduGjLjbC9QBZ
 connect four - https://edabit.com/challenge/GTgRaZWHuiHkKs8L2
+all subsets - https://edabit.com/challenge/hTQCFxFSgxAy7Hmdq
