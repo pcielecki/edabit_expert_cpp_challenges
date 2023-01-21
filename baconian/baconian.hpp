@@ -4,6 +4,6 @@
 #include <string>
 using std::string;
 
-string baconify(string msg, string mask = "");
+string baconify(const string& msg, const string& out_buf = ""); 
 
 #endif
