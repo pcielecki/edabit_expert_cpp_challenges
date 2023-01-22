@@ -1,10 +1,10 @@
 #ifndef __sudoku__
 #define __sudoku__
 
-#include <array>
+#include <vector>
 
 #define SUDOKU_FRAME_EDGE 9
-using sudoku_frame = std::array<std::array<int, SUDOKU_FRAME_EDGE>, SUDOKU_FRAME_EDGE>;
+using sudoku_frame = std::vector<std::vector<int>>;
 
 bool validate_sudoku(sudoku_frame frame);
 

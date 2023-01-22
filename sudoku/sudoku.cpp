@@ -1,27 +1,25 @@
-#include <array>
 #include <vector>
 #include <algorithm>
 
 #include "sudoku.hpp"
 
-using std::vector;
-using rowcol = std::array<int, SUDOKU_FRAME_EDGE>;
+using rowcol = std::vector<int>;
 
-static bool duplicates_present(rowcol collection) {
-        std::sort(collection.begin(), collection.end());
-        return std::adjacent_find(collection.begin(), collection.end()) != collection.end();
+static bool duplicates_present(const sudoku_frame& collections) {
+    return std::any_of(collections.begin(), collections.end(), [](rowcol segment) {
+        std::sort(segment.begin(), segment.end());
+        return std::adjacent_find(segment.begin(), segment.end()) != segment.end();
+    });
+}
+sudoku_frame get_frame_by_column(const sudoku_frame& frame) {
+    sudoku_frame frame_by_column (9, rowcol());
+    for(unsigned int column_idx = 0; column_idx < SUDOKU_FRAME_EDGE; ++column_idx)
+        for(const rowcol& row: frame)
+            frame_by_column.at(column_idx).push_back(row.at(column_idx));
+    return frame_by_column;
 }
 
 bool validate_sudoku(sudoku_frame frame) {
-    for(auto row: frame) {
-        if(duplicates_present(row))
-            return false;
-    }
-    for(unsigned int col_idx = 0; col_idx < SUDOKU_FRAME_EDGE; ++col_idx) {
-        rowcol column;
-        for(unsigned int row_idx = 0; row_idx < SUDOKU_FRAME_EDGE; ++row_idx)
-            column.at(row_idx) = frame.at(row_idx).at(col_idx);
-        if(duplicates_present(column)) return false;
-    }
-    return true;
+    std::vector<sudoku_frame> frames {frame, get_frame_by_column(frame)};
+    return !std::any_of(frames.begin(), frames.end(), duplicates_present);
 }
