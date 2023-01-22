@@ -58,7 +58,7 @@ TEST(SudokuSuite, SudokuTestFailOnRepetitionIn3x3Block) {
         { 5, 9, 1, 7, 6, 3, 4, 2, 8 },
         { 2, 4, 6, 8, 9, 5, 7, 1, 3 },
         { 9, 1, 4, 6, 3, 7, 5, 8, 2 },
-        { 6, 2, 5, 9, 4, 8, 1, 5, 7 },
+        { 6, 2, 0, 9, 4, 8, 1, 5, 7 },
         { 8, 7, 3, 5, 1, 2, 9, 6, 4 }
     }};
     ASSERT_EQ(false, validate_sudoku(frame));

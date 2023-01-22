@@ -5,11 +5,14 @@
 
 using rowcol = std::array<int, SUDOKU_FRAME_EDGE>;
 
+static bool duplicates_present(rowcol collection) {
+        std::sort(collection.begin(), collection.end());
+        return std::adjacent_find(collection.begin(), collection.end()) != collection.end();
+}
 
 bool validate_sudoku(sudoku_frame frame) {
     for(auto row: frame) {
-        std::sort(row.begin(), row.end());
-        if(std::adjacent_find(row.begin(), row.end()) != row.end())
+        if(duplicates_present(row))
             return false;
     }
     return true;
