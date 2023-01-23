@@ -5,6 +5,6 @@
 
 using std::string;
 
-string nico_cipher(const string& msg, const string& key);
+string nico_cipher(string msg, const string& key);
 
 #endif
