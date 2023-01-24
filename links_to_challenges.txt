@@ -14,3 +14,4 @@ all subsets - https://edabit.com/challenge/hTQCFxFSgxAy7Hmdq
 baconian - https://edabit.com/challenge/fvBsB9oQchCSquxec
 sudoku validation - https://edabit.com/challenge/pn98BSiyPAqyi2d5W
 nico cipher - https://edabit.com/challenge/aFsuzdw7iWdSTfHiX
+resistor network - https://edabit.com/challenge/rM44MAy5TXkR4hkPQ
