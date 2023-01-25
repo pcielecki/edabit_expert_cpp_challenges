@@ -18,7 +18,7 @@ typedef double (*t_connector)(double, float);
 double connect_serial(double a, float b) {return float(a == 0? b : a*b / (a+b));}
 double connect_parallel(double a, float b) {return float(a+b);}
 
-static double calculate_subcircuit(string& txt, string::iterator& it) {
+static double calculate_subcircuit(const string& txt, string::const_iterator& it) {
     vector<double> circuit;
     t_connector connect = '[' == *it? &connect_serial : &connect_parallel;
     it = std::next(it);
@@ -43,7 +43,7 @@ static double calculate_subcircuit(string& txt, string::iterator& it) {
                            connect);
 }
 
-double resist(string circuit_str) {
-    string::iterator it = circuit_str.begin();
+double resist(const string& circuit_str) {
+    string::const_iterator it = circuit_str.begin();
     return round(10*calculate_subcircuit(circuit_str, it)) / 10; 
 }

@@ -4,6 +4,6 @@
 #include <string>
 using std::string;
 
-double resist(string circuit);
+double resist(const string& circuit);
 
 #endif
