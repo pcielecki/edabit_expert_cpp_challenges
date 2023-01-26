@@ -28,14 +28,10 @@ int evaluate_algebra(string equation) {
     vector<int> left_side = str_to_vec(equation.substr(0, eq_pos-1));
     vector<int> right_side = str_to_vec(equation.substr(eq_pos+1));
 
-    int sum;
     unsigned int x_pos = equation.find('x');
-    bool x_on_right = (x_pos < eq_pos && equation.at(x_pos-2) == '-') || (x_pos > eq_pos && equation.at(x_pos-2) != '-'); 
-    if(!x_on_right) 
-        sum = std::accumulate(right_side.begin(), right_side.end(), 0)
-        - std::accumulate(left_side.begin(), left_side.end(), 0);
-    else 
-        sum = std::accumulate(left_side.begin(), left_side.end(), 0)
-            - std::accumulate(right_side.begin(), right_side.end(), 0);
-    return sum;
+    bool x_on_right = (x_pos > eq_pos) ^ (x_pos > 1 && (equation.at(x_pos-2) == '-'));
+    return (std::accumulate(right_side.begin(), right_side.end(), 0)
+            - std::accumulate(left_side.begin(), left_side.end(), 0))
+            * (x_on_right? -1 : 1);
 }
+
