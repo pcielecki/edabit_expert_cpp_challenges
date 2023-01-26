@@ -1,5 +1,41 @@
 #include <string>
+#include <numeric>
+#include <vector>
+
 using std::string;
+using std::accumulate;
+using std::vector;
 
+vector<int> str_to_vec(const string& eq_side) {
+    vector<int> numbers;
 
-int evaluate_algebra(string equation) {return 0;}
+    bool plus = true;
+    for(string::const_iterator it = eq_side.begin(); it != eq_side.end();) {
+        unsigned int n_chars_to_advance = 1;
+        if(*it == '-') plus = false;
+        else if(*it == '+') plus = true;
+        else if(std::isdigit(*it)) {
+            int n = std::stoi(string(it, eq_side.end()), &n_chars_to_advance);
+            numbers.push_back(plus? n : -n);
+        }
+        std::advance(it, n_chars_to_advance);
+    }
+    return numbers;
+}
+
+int evaluate_algebra(string equation) {
+    unsigned int eq_pos = equation.find('=');
+    vector<int> left_side = str_to_vec(equation.substr(0, eq_pos-1));
+    vector<int> right_side = str_to_vec(equation.substr(eq_pos+1));
+
+    int sum;
+    unsigned int x_pos = equation.find('x');
+    bool x_on_right = (x_pos < eq_pos && equation.at(x_pos-2) == '-') || (x_pos > eq_pos && equation.at(x_pos-2) != '-'); 
+    if(!x_on_right) 
+        sum = std::accumulate(right_side.begin(), right_side.end(), 0)
+        - std::accumulate(left_side.begin(), left_side.end(), 0);
+    else 
+        sum = std::accumulate(left_side.begin(), left_side.end(), 0)
+            - std::accumulate(right_side.begin(), right_side.end(), 0);
+    return sum;
+}
