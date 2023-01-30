@@ -19,3 +19,4 @@ simple algebra - https://edabit.com/challenge/su4fC3zugSBmS5bfq
 word buckest - https://edabit.com/challenge/E5xwvwQucx5AQKzR4
 vowels - https://edabit.com/challenge/Dc7ojN3ryZACMfgng
 dartboard - https://edabit.com/challenge/C8tpAinJMq8pKBzJD
+dartboard_combinations - https://edabit.com/challenge/JEY2rNankCJbF9Bxn
