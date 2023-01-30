@@ -14,5 +14,5 @@ TEST(DartsComboSuite, DartsTest1) {
 
 TEST(DartsComboSuite, OnNoCombinationsReturnEmpty) {
     vector<unsigned int> sections {3, 7, 11, 14, 18};
-    EXPECT_EQ(vector<string>(), get_dartboard_combinations(sections, 3, 33));
+    EXPECT_EQ(vector<string>(), get_dartboard_combinations(sections, 3, 1));
 }
