@@ -22,12 +22,8 @@ const vector<set<unsigned int>> dividers {
 };
 
 unsigned int get_n_proper_fractions(unsigned int max_denominator) {
-    vector<unsigned int> denominators(max_denominator-1, 0);
-    std::iota(denominators.begin(), denominators.end(), 2);
-
-
     unsigned int n_fractions = 0;
-    for(unsigned int den: denominators) {
+    for(unsigned int den = 2; den <= max_denominator; ++den) {
         for(unsigned int numerator = 1; numerator < den; ++numerator) {
             vector<unsigned int> intersect;
             std::set_intersection(dividers.at(numerator).begin(), dividers.at(numerator).end(),
