@@ -22,3 +22,4 @@ dartboard - https://edabit.com/challenge/C8tpAinJMq8pKBzJD
 dartboard_combinations - https://edabit.com/challenge/JEY2rNankCJbF9Bxn
 simplified proper fractions - https://edabit.com/challenge/hWQYFyMke28QrzCGJ
 ing - https://edabit.com/challenge/9qKMWGWJumQ5STNtE
+mana - https://edabit.com/challenge/2Axrquf9aWGaQzNjq
