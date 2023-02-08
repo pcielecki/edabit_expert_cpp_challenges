@@ -10,5 +10,5 @@ TEST(ManaSuite, ManaTest1)
 }
 
 TEST(ManaSuite, ManaTestOnEmptyHandReturnsFalse) {
-    EXPECT_EQ(true, can_pay_cost("", "2WWG"));
+    EXPECT_EQ(false, can_pay_cost("", "2WWG"));
 }
