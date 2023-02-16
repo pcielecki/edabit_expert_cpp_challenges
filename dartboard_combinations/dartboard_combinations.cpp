@@ -24,7 +24,7 @@ vector<string> get_dartboard_combinations(vector<unsigned int> sections,
         for(unsigned int idx = 0; idx < combinations.size(); ++idx)
             if(permutations.at(idx)) 
                 comb.push_back(combinations.at(idx));
-        if(std::accumulate(comb.begin(), comb.end(), 0) == target_score && 
+        if((unsigned int)std::accumulate(comb.begin(), comb.end(), 0) == target_score && 
             std::none_of(results.begin(), results.end(), 
                          [comb](vector<unsigned int> ex_comb)
                          {return std::is_permutation(comb.begin(), comb.end(), ex_comb.begin(), ex_comb.end());}))
