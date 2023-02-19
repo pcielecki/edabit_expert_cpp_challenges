@@ -2,7 +2,7 @@ CFLAGS = -g -c -Wall
 SRCS = rotate.cpp test_rotate.cpp
 HDRS = rotate.hpp
 
-rotate: $(SRCS) $(HDRS)
+rotate.o: $(SRCS) $(HDRS)
 	$(CC) $(CFLAGS) rotate.cpp -o rotate.o
 	$(CC) $(CFLAGS) test_rotate.cpp -o test_rotate.o
 

@@ -2,7 +2,7 @@ SRCS = dartboard.cpp test_dartboard.cpp
 HDRS = dartboard.hpp
 CFLAGS = -g -c -Wall
 
-dartboard: $(SRCS) $(HDRS)
+dartboard.o: $(SRCS) $(HDRS)
 	$(CC) $(CFLAGS) dartboard.cpp -o dartboard.o
 	$(CC) $(CFLAGS) test_dartboard.cpp -o test_dartboard.o
 

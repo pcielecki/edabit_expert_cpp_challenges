@@ -3,7 +3,7 @@ HDRS = polynomials.hpp
 
 CFLAGS = -g -c -Wall
 
-polynomials: $(SRCS) $(HDRS)
+polynomials.o: $(SRCS) $(HDRS)
 	$(CC) $(CFLAGS) polynomials.cpp -o polynomials.o
 	$(CC) $(CFLAGS) test_polynomials.cpp -o test_polynomials.o
 

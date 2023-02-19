@@ -3,7 +3,7 @@ HDRS = hash_juggling.hpp
 
 CFLAGS = -g -c -Wall
 
-hash_juggling: $(SRCS) $(HDRS)
+hash_juggling.o: $(SRCS) $(HDRS)
 	$(CC) $(CFLAGS) hash_juggling.cpp -o hash_juggling.o
 	$(CC) $(CFLAGS) test_hash_juggling.cpp -o test_hash_juggling.o
 
