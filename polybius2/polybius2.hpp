@@ -4,7 +4,7 @@
 #include <string>
 using std::string;
 
-string cipher(string plaintext);
-string decipher(string ciphertext);
+string cipher(const string& plaintext);
+string decipher(const string& ciphertext);
 
 #endif
