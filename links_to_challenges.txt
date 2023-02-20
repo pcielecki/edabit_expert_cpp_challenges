@@ -26,3 +26,4 @@ mana - https://edabit.com/challenge/2Axrquf9aWGaQzNjq
 polynomials - https://edabit.com/challenge/FYKdBjg2kf7sAANiT
 asteroids - https://edabit.com/challenge/z7ps9d2jmqY5ERCaT
 constrained_writing - https://edabit.com/challenge/g7cbJYaRkq5P36Ewy
+polybius2 - https://edabit.com/challenge/uDPMSHbjqjWNyN6er
