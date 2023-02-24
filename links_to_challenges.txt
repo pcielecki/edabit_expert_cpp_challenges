@@ -27,3 +27,4 @@ polynomials - https://edabit.com/challenge/FYKdBjg2kf7sAANiT
 asteroids - https://edabit.com/challenge/z7ps9d2jmqY5ERCaT
 constrained_writing - https://edabit.com/challenge/g7cbJYaRkq5P36Ewy
 polybius2 - https://edabit.com/challenge/uDPMSHbjqjWNyN6er
+s_string - https://edabit.com/challenge/vo6cNTLuiiy2GutkN
